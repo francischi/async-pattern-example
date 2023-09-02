@@ -10,6 +10,31 @@
 * Message Broker Connection Pool
 * Docker
 
+## **架構**
+```
+producer ---> message queue ---> consumer
+```
+
+## **使用場景**
+通常應用在不關心結果之事務(非同步)，或不用即時處理之事務。
+* 機台接收數據
+```
+機台數據較多可以使用message queue當buffer，再啟動多個consumer消耗這些數據。
+```
+* 發信件
+```
+先將要發之信件內容與收件者存入message queue，再慢慢消耗。
+```
+* 寫log
+```
+將要寫的log內容放入message queue，再慢慢消耗。
+```
+* 第三方進行足跡追蹤
+```
+若串接FB 或 google行銷之事件，需要頻繁傳送事件到fb or google，
+就可以使用message queue，才不會降低原API之效率。
+```
+
 ## 使用方式
 * rabbitmq
 ```
